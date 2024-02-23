@@ -33,11 +33,17 @@
 						"DEBUG": "#FF0000",
 						"FIXME": "#FF0000",
 						"HACK": "#FF00FF",
-						"IDEA": "#FF00FF",
-						"IMPORTANT": "#FF0000",
 						"INFO": "#0000FF",
 						"NOTE": "#0000FF",
-						"TODO": "#FF0000"
+						"TODO": "#FF0000",
+						"WARNING": "#FFA500",
+						"ERROR": "#FF0000",
+						"CRITICAL": "#FF0000",
+						"OPTIMIZATION": "#008000",
+						"DEPRECATED": "#808080",
+						"REFACTOR": "#FF00FF",
+						"REVIEW": "#0000FF",
+						"SECURITY": "#FF0000"
 					},
 					"description": "Customize the keywords and their colors.",
 					"type": "object"
@@ -89,10 +95,8 @@
 		"url": "https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode"
 	},
 	"scripts": {
-		"compile": "tsc -p ./",
 		"package": "vsce package -o build",
-		"publish": "vsce publish",
-		"watch": "tsc -watch -p ./"
+		"publish": "vsce publish"
 	},
 	"version": "0.0.1"
 }

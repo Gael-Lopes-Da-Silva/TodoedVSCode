@@ -20,51 +20,44 @@
     </a>
 </div>
 
-### 🗒️ Yellowed is a simple material dark theme wich focus his syntax color on the golden yellow. Its syntax is inspired by the [gruber-darker](https://github.com/rexim/gruber-darker-theme) theme for emacs.
+### 🗒️ Todoed is a simple extension to highlight keywords like TODO, FIXME, NOTE... I have added some options to modify the keywords their colors.
 
-### ❗ If you find any weird syntax highlighting, try disabling semantic highlighting. If it doesn't work, then please report it [here](https://github.com/Gael-Lopes-Da-Silva/YellowedVSCode/issues/new/choose). This would help me a lot since I can't cover all the languages.
+### ❗ If you find any bugs or have suggestions, fell free to report it [here](https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode/issues/new/choose). This would help me a lot.
 
-### ❗ If you want to help me add more icons, you can suggest things to me [here](https://github.com/Gael-Lopes-Da-Silva/YellowedVSCode/issues/new/choose).
+## ⚙️ Options
+### 🗒️ Todoed has 2 command available right now. `Todoed: Toggle Hightlight` that turn on or off the highlight and `Todoed: List Keywords` that give you a list of all keywords in the document and their position.
+
+~~~json
+{
+	"todoed.keywords": { // Keywords and thier color
+		"CRITICAL": "#FF0000",
+		"DEBUG": "#FF0000",
+		"DEPRECATED": "#808080",
+		"ERROR": "#FF0000",
+		"FIXME": "#FF0000",
+		"HACK": "#FF00FF",
+		"INFO": "#0000FF",
+		"NOTE": "#0000FF",
+		"OPTIMIZATION": "#008000",
+		"REFACTOR": "#FF00FF",
+		"REVIEW": "#0000FF",
+		"SECURITY": "#FF0000",
+		"TODO": "#FF0000",
+		"WARNING": "#FFA500"
+	},
+	"todoed.bold": true, // Enable or disable bold font
+	"todoed.underline": true, // Enable or disable underline text decoration
+}
+~~~
 
 ## 🖼️ Screenshots
-<details> <summary>Yellowed Reborn</summary>
-	<img src="./screenshots/yellowed_reborn_1.png" alt="">
-	<img src="./screenshots/yellowed_reborn_2.png" alt="">
-</details>
-
-<details> <summary>Yellowed</summary>
-	<img src="./screenshots/yellowed_1.png" alt="">
-	<img src="./screenshots/yellowed_2.png" alt="">
-</details>
+<img src="./screenshots/todoed_1.png" alt="">
+<img src="./screenshots/todoed_2.png" alt="">
 
 ## 🧱 How to build ?
 If you want a build of Yellowed you can find it in the release section or in the [build](./build/) folder. Else use `vsce package` in the project folder.
 
 ## ❓ How to install ?
-To install, open visual studio code and go to the extention menu. Click on the three dots and click on `Install from VSIX` and choose the `yellowed-X.X.X.vsix` file. Or just install it on the market place.
-
-## ⚙️ Color palet
-~~~py
-# interface
-gray         = "#1F1F1F"
-dark_gray    = "#181818"
-light_gray   = "#303030"
-smoke        = "#565656"
-yellow       = "#FFD900"
-purple       = "#994C92"
-blue         = "#008DFF"
-warning      = "#FF9C00"
-error        = "#FF0000"
-info         = "#0092FF"
-hint         = "#4DFF00"
-
-# syntax
-text         = "#FFFFFF"
-comment      = "#6B6B6B"
-string       = "#378B1D"
-constants    = "#FF80F4"
-keywords     = "#FFD900"
-function     = "#9B9B9B"
-~~~
+To install, open visual studio code and go to the extention menu. Click on the three dots and click on `Install from VSIX` and choose the `todoed-X.X.X.vsix` file. Or just install it on the market place.
 
 ### 🗒️ You can find my Visual Studio Code configuraton [here](https://github.com/Gael-Lopes-Da-Silva/MyVscodeConfig).
