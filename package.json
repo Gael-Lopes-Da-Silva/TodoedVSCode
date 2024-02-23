@@ -1,0 +1,98 @@
+{
+	"activationEvents": [
+		"onDidChangeActiveTextEditor",
+		"onDidChangeTextDocument",
+		"onDidChangeConfiguration",
+		"onStartupFinished"
+	],
+	"categories": [
+		"Other"
+	],
+	"contributes": {
+		"commands": [
+			{
+				"category": "Todoed",
+				"command": "todoed.toggleHighlight",
+				"title": "Toggle Hightlight"
+			},
+			{
+				"category": "Todoed",
+				"command": "todoed.listKeywords",
+				"title": "List Keywords"
+			}
+		],
+		"configuration": {
+			"properties": {
+				"todoed.bold": {
+					"default": true,
+					"description": "Make the keywords bold.",
+					"type": "boolean"
+				},
+				"todoed.keywords": {
+					"default": {
+						"DEBUG": "#FF0000",
+						"FIXME": "#FF0000",
+						"HACK": "#FF00FF",
+						"IDEA": "#FF00FF",
+						"IMPORTANT": "#FF0000",
+						"INFO": "#0000FF",
+						"NOTE": "#0000FF",
+						"TODO": "#FF0000"
+					},
+					"description": "Customize the keywords and their colors.",
+					"type": "object"
+				},
+				"todoed.underline": {
+					"default": true,
+					"description": "Make the keywords underlined.",
+					"type": "boolean"
+				}
+			},
+			"title": "Todoed Configuration",
+			"type": "object"
+		}
+	},
+	"description": "Highlight TODO, FIXME and other words in comments",
+	"devDependencies": {
+		"@types/mocha": "^10.0.6",
+		"@types/node": "18.x",
+		"@types/vscode": "^1.86.0",
+		"@vscode/test-cli": "^0.0.6",
+		"@vscode/test-electron": "^2.3.9",
+		"eslint": "^8.56.0",
+		"typescript": "^5.3.3"
+	},
+	"displayName": "Todoed",
+	"engines": {
+		"vscode": "^1.86.0"
+	},
+	"galleryBanner": {
+		"color": "#ffd900",
+		"theme": "dark"
+	},
+	"icon": "resources/logo.png",
+	"keywords": [
+		"todo",
+		"keywords",
+		"anotations",
+		"fixme",
+		"todoed",
+		"hightlight"
+	],
+	"license": "LICENSE.md",
+	"main": "./src/extension.js",
+	"markdown": "github",
+	"name": "todoed",
+	"publisher": "gael-lopes-da-silva",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode"
+	},
+	"scripts": {
+		"compile": "tsc -p ./",
+		"package": "vsce package -o build",
+		"publish": "vsce publish",
+		"watch": "tsc -watch -p ./"
+	},
+	"version": "0.0.1"
+}
