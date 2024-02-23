@@ -1,3 +1,7 @@
+// @author: Gael Lopes Da Silva
+// @project: Todoed
+// @github: https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode
+
 const vscode = require('vscode');
 
 let decorationTypes = {};
