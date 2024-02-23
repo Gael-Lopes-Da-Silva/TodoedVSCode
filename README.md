@@ -25,7 +25,7 @@
 ### ❗ If you find any bugs or have suggestions, fell free to report it [here](https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode/issues/new/choose). This would help me a lot.
 
 ## ⚙️ Options
-### 🗒️ Todoed has 2 command available right now. `Todoed: Toggle Hightlight` that turn on or off the highlight and `Todoed: List Keywords` that give you a list of all keywords in the document and their position.
+### 🗒️ Todoed has 2 command available right now. `Todoed: Toggle Hightlight` that turn on or off the keywords highlight and `Todoed: List Keywords` that give you a list of all keywords in the document and their position.
 
 ~~~json
 {
