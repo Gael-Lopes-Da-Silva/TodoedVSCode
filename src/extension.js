@@ -151,7 +151,7 @@ function listKeywords() {
 			.getText()
 			.split('\n')
 			.map((lineText, i) => {
-				const match = lineText.match(new RegExp(`\\b${keyword}\\b(?:\\(([^)]*)\\))?\\s*:\\s*([^\\r\\n]*)`));
+				const match = lineText.match(new RegExp(`\\b${keyword}(?:@([^:\\r\\n]+))?(?:\\(([^)]*)\\))?\\s*:\\s*([^\\r\\n]*)`));
 				return {
 					keyword,
 					line: i + 1,
@@ -161,9 +161,11 @@ function listKeywords() {
 			})
 			.filter(({ match, lineText }) => match && !isKeywordInString(keyword, lineText))
 			.map(({ line, match }) => {
-				const contentInParentheses = match[1] || '';
-				const textAfterColon = match[2] || '';
-				const description = `${contentInParentheses ? `(${contentInParentheses}) ` : ""}${textAfterColon}`;
+				const name = match[1] ? `@${match[1].trim()} ` : '';
+				const contentInParentheses = match[2] ? `(${match[2].trim()}) ` : '';
+				const textAfterColon = match[3] ? match[3].trim() : '';
+
+				const description = `${name}${contentInParentheses}${textAfterColon}`;
 
 				return {
 					label: keyword,
