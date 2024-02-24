@@ -8,5 +8,8 @@
 
 ---
 
+### 0.0.2
+- Support for the syntaxe TODO@name: some text
+
 ### 0.0.1
 - Initial release
