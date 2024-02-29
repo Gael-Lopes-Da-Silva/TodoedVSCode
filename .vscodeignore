@@ -1,6 +1,6 @@
-.vscode/**
-.gitignore
+.githuv/
+.vscode/
 build/
-**/jsconfig.json
-**/.eslintrc.json
-**/*.map
+.gitignore
+jsconfig.json
+.eslintrc.json

@@ -5,6 +5,7 @@
         "onDidChangeConfiguration",
         "onStartupFinished"
     ],
+    "bugs": "https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode/issues/new/choose",
     "categories": [
         "Other"
     ],
@@ -23,78 +24,78 @@
         ],
         "configuration": {
             "properties": {
-                "todoed.background": {
-                    "default": false,
-                    "description": "Make the keywords background take the color.",
-                    "type": "boolean"
-                },
-                "todoed.backgroundRadius": {
+                "todoed.borderRadius": {
                     "default": 0,
                     "markdownDescription": "Give a border raduis to the background if `todoed.background` is set to `true`.",
                     "type": "integer"
                 },
-                "todoed.bold": {
+                "todoed.isBold": {
                     "default": false,
                     "description": "Make the keywords bold.",
                     "type": "boolean"
                 },
-                "todoed.foreground": {
-                    "default": true,
-                    "description": "Make the keywords foreground take the color.",
-                    "type": "boolean"
-                },
-                "todoed.foregroundColor": {
-                    "default": "#000000",
-                    "markdownDescription": "The color of the keyword if `todoed.foreground` and `todoed.background` are set to `true`.",
-                    "type": "string"
-                },
-                "todoed.italic": {
+                "todoed.isItalic": {
                     "default": false,
                     "description": "Make the keywords italic.",
                     "type": "boolean"
                 },
+                "todoed.isUnderline": {
+                    "default": true,
+                    "description": "Make the keywords underlined.",
+                    "type": "boolean"
+                },
+                "todoed.keywordColor": {
+                    "default": "#000000",
+                    "markdownDescription": "The color of the keyword if `todoed.foreground` and `todoed.background` are set to `true`.",
+                    "type": "string"
+                },
                 "todoed.keywords": {
                     "default": {
-                        "PORT": "#A9A9A9",
-                        "IDEA": "#1E90FF",
-                        "REQ": "#FFA500",
-                        "FAQ": "#1E90FF",
-                        "SEE": "#FF00FF",
                         "BUG": "#FF3333",
                         "BUGFIX": "#FF3333",
-                        "WIP": "#A9A9A9",
-                        "WORKINPROGRESS": "#A9A9A9",
-                        "CONSIDER": "#008000",
-                        "DOCUMENTATION": "#1E90FF",
-                        "DOC": "#1E90FF",
                         "CONFIG": "#FFA500",
                         "CONFIGURATION": "#FFA500",
-                        "PERFORMANCE": "#008000",
-                        "TEST": "#008000",
-                        "XXX": "#FF00FF",
-                        "NOCOMMIT": "#FF3333",
+                        "CONSIDER": "#008000",
                         "CRITICAL": "#FF3333",
                         "DEBUG": "#FF3333",
-                        "REVIEWME": "#FF3333",
                         "DEPRECATED": "#A9A9A9",
+                        "DOC": "#1E90FF",
+                        "DOCUMENTATION": "#1E90FF",
                         "ERROR": "#FF3333",
+                        "FAQ": "#1E90FF",
                         "FIXME": "#FF3333",
                         "HACK": "#FF00FF",
+                        "IDEA": "#1E90FF",
                         "INFO": "#1E90FF",
+                        "NOCOMMIT": "#FF3333",
                         "NOTE": "#1E90FF",
                         "OPTIMIZATION": "#008000",
+                        "PERFORMANCE": "#008000",
+                        "PORT": "#A9A9A9",
                         "REFACTOR": "#FF00FF",
+                        "REQ": "#FFA500",
                         "REVIEW": "#1E90FF",
+                        "REVIEWME": "#FF3333",
                         "SECURITY": "#FF3333",
+                        "SEE": "#FF00FF",
+                        "TEST": "#008000",
                         "TODO": "#FF3333",
-                        "WARNING": "#FFA500"
+                        "WARNING": "#FFA500",
+                        "WIP": "#A9A9A9",
+                        "WORKINPROGRESS": "#A9A9A9",
+                        "XXX": "#FF00FF"
                     },
                     "description": "Customize the keywords and their colors.",
                     "type": "object"
                 },
-                "todoed.underline": {
+                "todoed.showBackground": {
+                    "default": false,
+                    "description": "Make the keywords background take the color.",
+                    "type": "boolean"
+                },
+                "todoed.showForeground": {
                     "default": true,
-                    "description": "Make the keywords underlined.",
+                    "description": "Make the keywords foreground take the color.",
                     "type": "boolean"
                 }
             },
@@ -107,10 +108,7 @@
         "@types/mocha": "^10.0.6",
         "@types/node": "18.x",
         "@types/vscode": "^1.86.0",
-        "@vscode/test-cli": "^0.0.6",
-        "@vscode/test-electron": "^2.3.9",
-        "eslint": "^8.56.0",
-        "typescript": "^5.3.3"
+        "eslint": "^8.56.0"
     },
     "displayName": "Todoed",
     "engines": {
@@ -125,12 +123,13 @@
         "todo",
         "keywords",
         "anotations",
+        "codetags",
         "fixme",
         "todoed",
         "hightlight"
     ],
     "license": "LICENSE.md",
-    "main": "./src/extension.js",
+    "main": "src/extension.js",
     "markdown": "github",
     "name": "todoed",
     "publisher": "gael-lopes-da-silva",
