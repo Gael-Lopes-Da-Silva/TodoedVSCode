@@ -9,15 +9,15 @@
 <br>
 
 <div align="center">
-    <img src="https://img.shields.io/visual-studio-marketplace/r/gael-lopes-da-silva.todoed?style=for-the-badge&labelColor=000000" alt="">
-    <img src="https://img.shields.io/visual-studio-marketplace/d/gael-lopes-da-silva.todoed?style=for-the-badge&labelColor=000000" alt="">
-    <img src="https://img.shields.io/visual-studio-marketplace/v/gael-lopes-da-silva.todoed?style=for-the-badge&labelColor=000000" alt="">
+	<img src="https://img.shields.io/visual-studio-marketplace/r/gael-lopes-da-silva.todoed?style=for-the-badge&labelColor=000000" alt="">
+	<img src="https://img.shields.io/visual-studio-marketplace/d/gael-lopes-da-silva.todoed?style=for-the-badge&labelColor=000000" alt="">
+	<img src="https://img.shields.io/visual-studio-marketplace/v/gael-lopes-da-silva.todoed?style=for-the-badge&labelColor=000000" alt="">
 </div>
 
 <div align="center">
 	<a href="./LICENSE.md">
-        <img src="https://img.shields.io/badge/license-BSD%203--Clause-blue?style=for-the-badge&labelColor=000000" alt="">
-    </a>
+		<img src="https://img.shields.io/badge/license-BSD%203--Clause-blue?style=for-the-badge&labelColor=000000" alt="">
+	</a>
 </div>
 
 ### 🗒️ Todoed is a simple extension to highlight keywords like TODO, FIXME, NOTE... I have added some options to modify the keywords and their colors.

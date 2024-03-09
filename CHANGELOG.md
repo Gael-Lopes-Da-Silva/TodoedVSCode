@@ -8,6 +8,9 @@
 
 ---
 
+### 0.0.3 - 0.0.4
+- Support for languages comments config
+
 ### 0.0.2
 - Support for the syntaxe TODO@name: some text
 

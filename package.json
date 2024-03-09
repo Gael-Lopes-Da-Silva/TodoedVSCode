@@ -1,138 +1,138 @@
 {
-    "activationEvents": [
-        "onDidChangeActiveTextEditor",
-        "onDidChangeTextDocument",
-        "onDidChangeConfiguration",
-        "onStartupFinished"
-    ],
-    "bugs": "https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode/issues/new/choose",
-    "categories": [
-        "Other"
-    ],
-    "contributes": {
-        "commands": [
-            {
-                "category": "Todoed",
-                "command": "todoed.toggleHighlight",
-                "title": "Toggle Hightlight"
-            },
-            {
-                "category": "Todoed",
-                "command": "todoed.listKeywords",
-                "title": "List Keywords"
-            }
-        ],
-        "configuration": {
-            "properties": {
-                "todoed.borderRadius": {
-                    "default": 0,
-                    "markdownDescription": "Give a border raduis to the background if `todoed.background` is set to `true`.",
-                    "type": "integer"
-                },
-                "todoed.isBold": {
-                    "default": false,
-                    "description": "Make the keywords bold.",
-                    "type": "boolean"
-                },
-                "todoed.isItalic": {
-                    "default": false,
-                    "description": "Make the keywords italic.",
-                    "type": "boolean"
-                },
-                "todoed.isUnderline": {
-                    "default": true,
-                    "description": "Make the keywords underlined.",
-                    "type": "boolean"
-                },
-                "todoed.keywordColor": {
-                    "default": "#000000",
-                    "markdownDescription": "The color of the keyword if `todoed.foreground` and `todoed.background` are set to `true`.",
-                    "type": "string"
-                },
-                "todoed.keywords": {
-                    "default": {
-                        "BUG": "#FF3333",
-                        "CONFIG": "#FFA500",
-                        "CRITICAL": "#FF3333",
-                        "DEBUG": "#FF3333",
-                        "DEPRECATED": "#A9A9A9",
-                        "ERROR": "#FF3333",
-                        "FAQ": "#1E90FF",
-                        "FIXME": "#FF3333",
-                        "HACK": "#FF00FF",
-                        "IDEA": "#1E90FF",
-                        "INFO": "#1E90FF",
-                        "NOCOMMIT": "#FF3333",
-                        "NOTE": "#1E90FF",
-                        "OPTIMIZATION": "#008000",
-                        "PERFORMANCE": "#008000",
-                        "PORT": "#A9A9A9",
-                        "REFACTOR": "#FF00FF",
-                        "REQ": "#FFA500",
-                        "REVIEW": "#1E90FF",
-                        "SECURITY": "#FF3333",
-                        "SEE": "#FF00FF",
-                        "TEST": "#008000",
-                        "TODO": "#FF3333",
-                        "WARNING": "#FFA500",
-                        "WIP": "#A9A9A9",
-                        "XXX": "#FF00FF"
-                    },
-                    "description": "Customize the keywords and their colors.",
-                    "type": "object"
-                },
-                "todoed.showBackground": {
-                    "default": false,
-                    "description": "Make the keywords background take the color.",
-                    "type": "boolean"
-                },
-                "todoed.showForeground": {
-                    "default": true,
-                    "description": "Make the keywords foreground take the color.",
-                    "type": "boolean"
-                }
-            },
-            "title": "Todoed Configuration",
-            "type": "object"
-        }
-    },
-    "description": "Highlight TODO, FIXME and other words in comments",
-    "devDependencies": {
-        "@types/mocha": "^10.0.6",
-        "@types/node": "18.x",
-        "@types/vscode": "^1.84.0",
-        "eslint": "^8.56.0"
-    },
-    "displayName": "Todoed",
-    "engines": {
-        "vscode": "^1.84.0"
-    },
-    "galleryBanner": {
-        "color": "#ffd900",
-        "theme": "dark"
-    },
-    "icon": "resources/logo.png",
-    "keywords": [
-        "todo",
-        "keywords",
-        "anotations",
-        "codetags",
-        "fixme",
-        "todoed",
-        "hightlight"
-    ],
-    "license": "LICENSE.md",
-    "main": "src/extension.js",
-    "markdown": "github",
-    "name": "todoed",
-    "publisher": "gael-lopes-da-silva",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode"
-    },
-    "scripts": {
-        "package": "vsce package -o build",
-        "publish": "vsce publish"
-    },
-    "version": "0.0.3"
+	"activationEvents": [
+		"onDidChangeActiveTextEditor",
+		"onDidChangeTextDocument",
+		"onDidChangeConfiguration",
+		"onStartupFinished"
+	],
+	"bugs": "https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode/issues/new/choose",
+	"categories": [
+		"Other"
+	],
+	"contributes": {
+		"commands": [
+			{
+				"category": "Todoed",
+				"command": "todoed.toggleHighlight",
+				"title": "Toggle Hightlight"
+			},
+			{
+				"category": "Todoed",
+				"command": "todoed.listKeywords",
+				"title": "List Keywords"
+			}
+		],
+		"configuration": {
+			"properties": {
+				"todoed.borderRadius": {
+					"default": 0,
+					"markdownDescription": "Give a border raduis to the background if `todoed.background` is set to `true`.",
+					"type": "integer"
+				},
+				"todoed.isBold": {
+					"default": false,
+					"description": "Make the keywords bold.",
+					"type": "boolean"
+				},
+				"todoed.isItalic": {
+					"default": false,
+					"description": "Make the keywords italic.",
+					"type": "boolean"
+				},
+				"todoed.isUnderline": {
+					"default": true,
+					"description": "Make the keywords underlined.",
+					"type": "boolean"
+				},
+				"todoed.keywordColor": {
+					"default": "#000000",
+					"markdownDescription": "The color of the keyword if `todoed.foreground` and `todoed.background` are set to `true`.",
+					"type": "string"
+				},
+				"todoed.keywords": {
+					"default": {
+						"BUG": "#FF3333",
+						"CONFIG": "#FFA500",
+						"CRITICAL": "#FF3333",
+						"DEBUG": "#FF3333",
+						"DEPRECATED": "#A9A9A9",
+						"ERROR": "#FF3333",
+						"FAQ": "#1E90FF",
+						"FIXME": "#FF3333",
+						"HACK": "#FF00FF",
+						"IDEA": "#1E90FF",
+						"INFO": "#1E90FF",
+						"NOCOMMIT": "#FF3333",
+						"NOTE": "#1E90FF",
+						"OPTIMIZATION": "#008000",
+						"PERFORMANCE": "#008000",
+						"PORT": "#A9A9A9",
+						"REFACTOR": "#FF00FF",
+						"REQ": "#FFA500",
+						"REVIEW": "#1E90FF",
+						"SECURITY": "#FF3333",
+						"SEE": "#FF00FF",
+						"TEST": "#008000",
+						"TODO": "#FF3333",
+						"WARNING": "#FFA500",
+						"WIP": "#A9A9A9",
+						"XXX": "#FF00FF"
+					},
+					"description": "Customize the keywords and their colors.",
+					"type": "object"
+				},
+				"todoed.showBackground": {
+					"default": false,
+					"description": "Make the keywords background take the color.",
+					"type": "boolean"
+				},
+				"todoed.showForeground": {
+					"default": true,
+					"description": "Make the keywords foreground take the color.",
+					"type": "boolean"
+				}
+			},
+			"title": "Todoed Configuration",
+			"type": "object"
+		}
+	},
+	"description": "Highlight TODO, FIXME and other words in comments",
+	"devDependencies": {
+		"@types/mocha": "^10.0.6",
+		"@types/node": "18.x",
+		"@types/vscode": "^1.84.0",
+		"eslint": "^8.56.0"
+	},
+	"displayName": "Todoed",
+	"engines": {
+		"vscode": "^1.84.0"
+	},
+	"galleryBanner": {
+		"color": "#ffd900",
+		"theme": "dark"
+	},
+	"icon": "resources/logo.png",
+	"keywords": [
+		"todo",
+		"keywords",
+		"anotations",
+		"codetags",
+		"fixme",
+		"todoed",
+		"hightlight"
+	],
+	"license": "LICENSE.md",
+	"main": "src/extension.js",
+	"markdown": "github",
+	"name": "todoed",
+	"publisher": "gael-lopes-da-silva",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode"
+	},
+	"scripts": {
+		"package": "vsce package -o build",
+		"publish": "vsce publish"
+	},
+	"version": "0.0.4"
 }
