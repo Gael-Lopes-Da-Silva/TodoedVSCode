@@ -8,6 +8,9 @@
 
 ---
 
+### 0.0.5
+- Fix keyword highlight issue when a language doesn't possess multiline comments like in Zig
+
 ### 0.0.3 - 0.0.4
 - Support for languages comments config
 

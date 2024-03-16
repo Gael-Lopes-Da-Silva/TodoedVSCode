@@ -30,23 +30,22 @@
 ~~~json
 {
 	"todoed.keywords": { // Keywords and thier color
-		"CRITICAL": "#FF0000",
-		"DEBUG": "#FF0000",
-		"DEPRECATED": "#808080",
-		"ERROR": "#FF0000",
-		"FIXME": "#FF0000",
+		"BUG": "#FF3333",
+		"FIXME": "#FF3333",
 		"HACK": "#FF00FF",
-		"INFO": "#0000FF",
-		"NOTE": "#0000FF",
-		"OPTIMIZATION": "#008000",
-		"REFACTOR": "#FF00FF",
-		"REVIEW": "#0000FF",
-		"SECURITY": "#FF0000",
-		"TODO": "#FF0000",
-		"WARNING": "#FFA500"
+		"INFO": "#1E90FF",
+		"NOTE": "#1E90FF",
+		"TODO": "#FF3333",
+		"WIP": "#A9A9A9",
+		"XXX": "#FF00FF"
 	},
-	"todoed.bold": true, // Enable or disable bold font
-	"todoed.underline": true, // Enable or disable underline text decoration
+	"todoed.borderRadius": 0, // Raduis of the keyword background if set to true
+	"todoed.isBold": true, // Enable or disable bold font
+	"todoed.isItalic": false, // Enable or disable italic text decoration
+	"todoed.isUnderline": true, // Enable or disable underline text decoration
+	"todoed.keywordColor": "#000000", // Keywords color if background and foreground are set to true
+	"todoed.showBackground": false, // Enable or disable keywords background
+	"todoed.showForeground": true, // Enable or disable keywords foreground
 }
 ~~~
 

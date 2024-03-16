@@ -140,10 +140,22 @@ function listKeywords() {
 	const lineBuffer = [];
 
 	Object.keys(keywords).forEach(keyword => {
-		const lineComment = `${escapeRegex(config.lineComment)}.*\\b(${keyword})\\b(?:([@#~$!%?])(.*[^ ])?)?(?:\\((.*)\\))?(?:{(.*)})?(?:\\[(.*)\\])? *[:]? *(.*[^\\s])?`;
-		const blockComment = `${escapeRegex(config.blockComment[0])}[\\s\\S\\r]*?\\b(${keyword})\\b(?:([@#~$!%?])(.*[^ ])?)?(?:\\((.*)\\))?(?:{(.*)})?(?:\\[(.*)\\])? *[:]? *(.*[^\\s])?[\\s\\S\\r]*?${escapeRegex(config.blockComment[1])}`;
+		let expresion = "";
+		let expresionCount = 0;
 
-		const regex = new RegExp(`${lineComment}|${blockComment}`, 'g');
+		if (config.lineComment) {
+			if (expresionCount > 0) expresion += "|";
+			expresion += `${escapeRegex(config.lineComment)}.*\\b(${keyword})\\b(?:([@#~$!%?])(.*[^ ])?)?(?:\\((.*)\\))?(?:{(.*)})?(?:\\[(.*)\\])? *[:]? *(.*[^\\s])?`;
+			expresionCount += 1;
+		}
+
+		if (config.blockComment) {
+			if (expresionCount > 0) expresion += "|";
+			expresion += `${escapeRegex(config.blockComment[0])}[\\s\\S\\r]*?\\b(${keyword})\\b(?:([@#~$!%?])(.*[^ ])?)?(?:\\((.*)\\))?(?:{(.*)})?(?:\\[(.*)\\])? *[:]? *(.*[^\\s])?[\\s\\S\\r]*?${escapeRegex(config.blockComment[1])}`;
+			expresionCount += 1;
+		}
+
+		const regex = new RegExp(expresion, `g`);
 
 		let match;
 		while ((match = regex.exec(text))) {
@@ -226,10 +238,22 @@ function updateDecorations() {
 	Object.keys(keywords).forEach(keyword => {
 		const decorations = [];
 
-		const lineComment = `${escapeRegex(config.lineComment)}.*(\\b${keyword}\\b)`;
-		const blockComment = `${escapeRegex(config.blockComment[0])}[\\s\\S\\r]*?(\\b${keyword}\\b)[\\s\\S\\r]*?${escapeRegex(config.blockComment[1])}`;
+		let expresion = "";
+		let expresionCount = 0;
 
-		const regex = new RegExp(`${lineComment}|${blockComment}`, `g`);
+		if (config.lineComment) {
+			if (expresionCount > 0) expresion += "|";
+			expresion += `${escapeRegex(config.lineComment)}.*(\\b${keyword}\\b)`;
+			expresionCount += 1;
+		}
+
+		if (config.blockComment) {
+			if (expresionCount > 0) expresion += "|";
+			expresion += `${escapeRegex(config.blockComment[0])}[\\s\\S\\r]*?(\\b${keyword}\\b)[\\s\\S\\r]*?${escapeRegex(config.blockComment[1])}`;
+			expresionCount += 1;
+		}
+
+		const regex = new RegExp(expresion, `g`);
 
 		let match;
 		while ((match = regex.exec(text))) {

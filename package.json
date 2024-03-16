@@ -52,29 +52,11 @@
 				"todoed.keywords": {
 					"default": {
 						"BUG": "#FF3333",
-						"CONFIG": "#FFA500",
-						"CRITICAL": "#FF3333",
-						"DEBUG": "#FF3333",
-						"DEPRECATED": "#A9A9A9",
-						"ERROR": "#FF3333",
-						"FAQ": "#1E90FF",
 						"FIXME": "#FF3333",
 						"HACK": "#FF00FF",
-						"IDEA": "#1E90FF",
 						"INFO": "#1E90FF",
-						"NOCOMMIT": "#FF3333",
 						"NOTE": "#1E90FF",
-						"OPTIMIZATION": "#008000",
-						"PERFORMANCE": "#008000",
-						"PORT": "#A9A9A9",
-						"REFACTOR": "#FF00FF",
-						"REQ": "#FFA500",
-						"REVIEW": "#1E90FF",
-						"SECURITY": "#FF3333",
-						"SEE": "#FF00FF",
-						"TEST": "#008000",
 						"TODO": "#FF3333",
-						"WARNING": "#FFA500",
 						"WIP": "#A9A9A9",
 						"XXX": "#FF00FF"
 					},
@@ -134,5 +116,5 @@
 		"package": "vsce package -o build",
 		"publish": "vsce publish"
 	},
-	"version": "0.0.4"
+	"version": "0.0.5"
 }
