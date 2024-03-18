@@ -7,9 +7,9 @@ const path = require('path');
 const fs = require('fs');
 
 let decorationTypes = {};
-let highlight = true;
 
 let keywords = {};
+let highlight = true;
 let isBold = false;
 let isUnderline = true;
 let isItalic = false;
@@ -97,6 +97,7 @@ function loadConfiguration() {
 	showForeground = config.inspect('showForeground').globalValue || config.get('showForeground');
 	keywordColor = config.inspect('keywordColor').globalValue || config.get('keywordColor');
 	borderRadius = config.inspect('borderRadius').globalValue || config.get('borderRadius');
+	highlight = config.inspect('highlight').globalValue || config.get('highlight');
 }
 
 function createDecorations() {

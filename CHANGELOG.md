@@ -8,6 +8,10 @@
 
 ---
 
+### 0.0.6
+- Added alt+t has the todo list keybinding
+- Added an option to permanently turn off the highlight
+
 ### 0.0.5
 - Fix keyword highlight issue when a language doesn't possess multiline comments like in Zig
 
