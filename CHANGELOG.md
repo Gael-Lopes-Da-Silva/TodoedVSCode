@@ -4,7 +4,7 @@
 
 ---
 
-### 🗒️ All changes related to Todoed will be writen here.
+### All changes related to Todoed will be writen here.
 
 ---
 

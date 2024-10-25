@@ -1,0 +1,2 @@
+- [ ] Add a function to list keyword in the entire workspace
+- [ ] Try to add #1 github suggestion

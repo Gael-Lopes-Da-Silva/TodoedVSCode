@@ -11,7 +11,7 @@
 <div align="center">
 	<img src="https://img.shields.io/visual-studio-marketplace/r/gael-lopes-da-silva.todoed?style=for-the-badge&labelColor=000000" alt="">
 	<img src="https://img.shields.io/visual-studio-marketplace/d/gael-lopes-da-silva.todoed?style=for-the-badge&labelColor=000000" alt="">
-	<img src="https://img.shields.io/visual-studio-marketplace/v/gael-lopes-da-silva.todoed?style=for-the-badge&labelColor=000000" alt="">
+	<img src="https://img.shields.io/visual-studio-marketplace/i/gael-lopes-da-silva.todoed?style=for-the-badge&labelColor=000000" alt="">
 </div>
 
 <div align="center">
@@ -20,12 +20,12 @@
 	</a>
 </div>
 
-### 🗒️ Todoed is a simple extension to highlight keywords like TODO, FIXME, NOTE... I have added some options to modify the keywords and their colors.
+### Todoed is a simple extension to highlight keywords like TODO, FIXME, NOTE... I have added some options to modify the keywords and their colors.
 
-### ❗ If you find any bugs or have suggestions, fell free to report it [here](https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode/issues/new/choose). This would help me a lot.
+### If you find any bugs or have suggestions, fell free to report it [here](https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode/issues/new/choose). This would help me a lot.
 
-## ⚙️ Options
-#### 🗒️ Todoed has 2 command available right now. `Todoed: Toggle Hightlight` that turn on or off the keywords highlight and `Todoed: List Keywords` that give you a list of all keywords in the document and their position.
+## Options
+#### Todoed has 2 command available right now. `Todoed: Toggle Hightlight` that turn on or off the keywords highlight and `Todoed: List Keywords` that give you a list of all keywords in the document and their position.
 
 ~~~json
 {
@@ -49,14 +49,12 @@
 }
 ~~~
 
-## 🖼️ Screenshots
+## Screenshots
 <img src="./screenshots/todoed_1.png" alt="">
 <img src="./screenshots/todoed_2.png" alt="">
 
-## 🧱 How to build ?
+## How to build ?
 If you want a build of Yellowed you can find it in the release section or in the [build](./build/) folder. Else use `vsce package` in the project folder.
 
-## ❓ How to install ?
+## How to install ?
 To install, open visual studio code and go to the extention menu. Click on the three dots and click on `Install from VSIX` and choose the `todoed-X.X.X.vsix` file. Or just install it on the market place.
-
-#### 🗒️ You can find my Visual Studio Code configuraton [here](https://github.com/Gael-Lopes-Da-Silva/MyVscodeConfig).
