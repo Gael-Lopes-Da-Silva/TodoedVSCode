@@ -8,6 +8,10 @@
 
 ---
 
+### 0.0.7
+- Better highlight of keyword on same line
+- Better matching of keyword for listKeywords command
+
 ### 0.0.6
 - Added alt+t has the todo list keybinding
 - Added an option to permanently turn off the highlight

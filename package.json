@@ -35,7 +35,7 @@
 					"type": "boolean"
 				},
 				"todoed.isBold": {
-					"default": false,
+					"default": true,
 					"description": "Make the keywords bold.",
 					"type": "boolean"
 				},
@@ -45,7 +45,7 @@
 					"type": "boolean"
 				},
 				"todoed.isUnderline": {
-					"default": true,
+					"default": false,
 					"description": "Make the keywords underlined.",
 					"type": "boolean"
 				},
@@ -127,5 +127,5 @@
 		"package": "vsce package -o build",
 		"publish": "vsce publish"
 	},
-	"version": "0.0.6"
+	"version": "0.0.7"
 }

@@ -42,7 +42,7 @@
 	"todoed.borderRadius": 0, // Raduis of the keyword background if set to true
 	"todoed.isBold": true, // Enable or disable bold font
 	"todoed.isItalic": false, // Enable or disable italic text decoration
-	"todoed.isUnderline": true, // Enable or disable underline text decoration
+	"todoed.isUnderline": false, // Enable or disable underline text decoration
 	"todoed.keywordColor": "#000000", // Keywords color if background and foreground are set to true
 	"todoed.showBackground": false, // Enable or disable keywords background
 	"todoed.showForeground": true, // Enable or disable keywords foreground

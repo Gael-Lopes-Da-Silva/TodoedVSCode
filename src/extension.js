@@ -10,8 +10,8 @@ let decorationTypes = {};
 
 let keywords = {};
 let highlight = true;
-let isBold = false;
-let isUnderline = true;
+let isBold = true;
+let isUnderline = false;
 let isItalic = false;
 let showBackground = false;
 let borderRadius = 0;
@@ -125,7 +125,6 @@ function toggleHighlight() {
     vscode.window.showInformationMessage(`Keywords highlight is now ${highlight ? 'on' : 'off'}.`);
 }
 
-
 function onDidChangeActiveTextEditor() {
     updateDecorations();
 }
@@ -153,58 +152,115 @@ function listKeywords() {
 
     const languageId = activeTextEditor.document.languageId;
     const config = commentConfig.getCommentConfig(languageId);
+
     if (!config) {
         vscode.window.showInformationMessage("The language config doesn't possess comments.");
         return;
     }
 
     const text = activeTextEditor.document.getText();
-    const todos = [];
-    const lineBuffer = [];
+    const lines = text.split('\n');
 
-    Object.keys(keywords).forEach(keyword => {
-        let expresion = "";
-        let expresionCount = 0;
+    let todos = [];
 
-        if (config.lineComment) {
-            if (expresionCount > 0) expresion += "|";
-            expresion += `${escapeRegex(config.lineComment)}.*\\b(${keyword})\\b(?:([@#~$!%?])(.*[^ :])?)?(?:\\((.*)\\))?(?:{(.*)})?(?:\\[(.*)\\])? *[:]? *(.*[^\\s])?`;
-            expresionCount += 1;
-        }
+    function processLineComments() {
+        lines.forEach((lineText, lineNumber) => {
+            let earliestMatch = null;
+            let earliestKeyword = null;
+    
+            Object.keys(keywords).forEach(keyword => {
+                let expresion = `(?<=${escapeRegex(config.lineComment)}.*?)`;
+                expresion += `\\b${keyword}\\b`;
+                expresion += `([\\[\\(\\{][^:]*[\\]\\)\\}])?`;
+                expresion += `(?:[@#~$!%?\\-]([^ :]*))?`;
+                expresion += ` *[:]? *`;
+                expresion += `(.*)?`;
+    
+                const regex = new RegExp(expresion);
+                const match = regex.exec(lineText);
+    
+                if (match && (!earliestMatch || match.index < earliestMatch.index)) {
+                    earliestMatch = match;
+                    earliestKeyword = keyword;
+                }
+            });
+    
+            if (earliestMatch && earliestKeyword) {
+                const contentInEnclosure = earliestMatch[1] ? ` ${earliestMatch[1].trim()}` : "";
+                const contentAfterSymbol = earliestMatch[2] ? ` ${earliestMatch[2].trim()}` : "";
+                const textAfterColon = earliestMatch[3] ? earliestMatch[3].trim() : "";
+    
+                let label = `${earliestKeyword}${contentInEnclosure}${contentAfterSymbol}`;
+    
+                todos.push({
+                    label: label,
+                    description: textAfterColon,
+                    line: lineNumber + 1,
+                });
+            }
+        });
+    }
 
-        if (config.blockComment) {
-            if (expresionCount > 0) expresion += "|";
-            expresion += `${escapeRegex(config.blockComment[0])}[\\s\\S\\r]*?\\b(${keyword})\\b(?:([@#~$!%?])(.*[^ :])?)?(?:\\((.*)\\))?(?:{(.*)})?(?:\\[(.*)\\])? *[:]? *(.*[^\\s])?[\\s\\S\\r]*?${escapeRegex(config.blockComment[1])}`;
-            expresionCount += 1;
-        }
-
-        const regex = new RegExp(expresion, `g`);
-
+    function processBlockComments() {
+        let expresion = `${escapeRegex(config.blockComment[0])}[\\s\\S\\r]*?`;
+        expresion += `${escapeRegex(config.blockComment[1])}`;
+        
+        const blockRegex = new RegExp(expresion, 'g');
         let match;
-        while ((match = regex.exec(text))) {
-            const keywordIndex = match[0].indexOf(match[1] || match[8]) || 0;
-            const line = activeTextEditor.document.positionAt(match.index + keywordIndex).line + 1;
+    
+        while ((match = blockRegex.exec(text))) {
+            const blockStartIndex = match.index;
+            const blockText = match[0];
+            const blockStartLine = activeTextEditor.document.positionAt(blockStartIndex).line;
+            const lines = blockText.split('\n');
+    
+            lines.forEach((lineText, lineOffset) => {
+                let earliestMatch = null;
+                let earliestKeyword = null;
+    
+                Object.keys(keywords).forEach(keyword => {
+                    let expression = `\\b${keyword}\\b`;
+                    expression += `([\\[\\(\\{][^:]*[\\]\\)\\}])?`;
+                    expression += `(?:[@#~$!%?\\-]([^ :]*))?`;
+                    expression += ` *[:]? *`;
+                    expression += `(.*?)`;
+                    expression += `(?=${escapeRegex(config.blockComment[1])}|$)`;
 
-            if (lineBuffer.includes(line)) continue;
-            lineBuffer.push(line);
-
-            const keyword = match[1] ? match[1].trim() : (match[8] ? match[8].trim() : '');
-            // const symbol = match[2] ? match[2].trim() : (match[9] ? match[9].trim() : '');
-            const contentAfterSymbol = match[3] ? ` ${match[3].trim()}` : (match[10] ? ` ${match[10].trim()}` : '');
-            const contentInParentheses = match[4] ? ` (${match[4].trim()})` : (match[11] ? ` (${match[11].trim()})` : '');
-            const contentInCurlyBrackets = match[5] ? ` {${match[5].trim()}}` : (match[12] ? ` {${match[12].trim()}}` : '');
-            const contentInSquareBrackets = match[6] ? ` [${match[6].trim()}]` : (match[13] ? ` [${match[13].trim()}]` : '');
-            const textAfterColon = match[7] ? match[7].trim() : (match[14] ? match[14].trim() : '');
-
-            let label = `${keyword}${contentAfterSymbol}${contentInParentheses}${contentInCurlyBrackets}${contentInSquareBrackets}`;
-
-            todos.push({
-                label: label,
-                description: textAfterColon,
-                line: line,
+                    const regex = new RegExp(expression);
+                    const keywordMatch = regex.exec(lineText);
+    
+                    if (keywordMatch && (!earliestMatch || keywordMatch.index < earliestMatch.index)) {
+                        earliestMatch = keywordMatch;
+                        earliestKeyword = keyword;
+                    }
+                });
+    
+                if (earliestMatch && earliestKeyword) {
+                    const line = blockStartLine + lineOffset + 1;
+    
+                    const contentInEnclosure = earliestMatch[1] ? ` ${earliestMatch[1].trim()}` : "";
+                    const contentAfterSymbol = earliestMatch[2] ? ` ${earliestMatch[2].trim()}` : "";
+                    const textAfterColon = earliestMatch[3] ? earliestMatch[3].trim() : "";
+    
+                    let label = `${earliestKeyword}${contentInEnclosure}${contentAfterSymbol}`;
+    
+                    todos.push({
+                        label: label,
+                        description: textAfterColon,
+                        line: line,
+                    });
+                }
             });
         }
-    });
+    }
+
+    if (config.lineComment) {
+        processLineComments();
+    }
+
+    if (config.blockComment) {
+        processBlockComments();
+    }
 
     if (todos.length === 0) {
         vscode.window.showInformationMessage('No keywords found in the file.');
@@ -266,7 +322,7 @@ function updateDecorations() {
 
                 const startPos = activeTextEditor.document.positionAt(match.index + keywordPos);
                 const endPos = activeTextEditor.document.positionAt(match.index + keywordPos + keyword.length);
-                
+
                 decorations.push({
                     range: new vscode.Range(startPos, endPos),
                     hoverMessage: "",
