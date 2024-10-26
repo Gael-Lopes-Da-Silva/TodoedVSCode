@@ -10,8 +10,8 @@
 
 <div align="center">
 	<img src="https://img.shields.io/visual-studio-marketplace/r/gael-lopes-da-silva.todoed?style=for-the-badge&labelColor=000000" alt="">
-	<img src="https://img.shields.io/visual-studio-marketplace/d/gael-lopes-da-silva.todoed?style=for-the-badge&labelColor=000000" alt="">
 	<img src="https://img.shields.io/visual-studio-marketplace/i/gael-lopes-da-silva.todoed?style=for-the-badge&labelColor=000000" alt="">
+	<img src="https://img.shields.io/visual-studio-marketplace/d/gael-lopes-da-silva.todoed?style=for-the-badge&labelColor=000000" alt="">
 </div>
 
 <div align="center">
