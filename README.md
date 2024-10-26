@@ -54,7 +54,7 @@
 <img src="./screenshots/todoed_2.png" alt="">
 
 ## How to build ?
-If you want a build of Yellowed you can find it in the release section or in the [build](./build/) folder. Else use `vsce package` in the project folder.
+If you want a build of Todoed you can find it in the release section or in the [build](./build/) folder. Else use `vsce package` in the project folder.
 
 ## How to install ?
 To install, open visual studio code and go to the extention menu. Click on the three dots and click on `Install from VSIX` and choose the `todoed-X.X.X.vsix` file. Or just install it on the market place.
