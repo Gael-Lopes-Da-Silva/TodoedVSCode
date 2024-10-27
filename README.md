@@ -46,6 +46,7 @@
 	"todoed.keywordColor": "#000000", // Keywords color if background and foreground are set to true
 	"todoed.showBackground": false, // Enable or disable keywords background
 	"todoed.showForeground": true, // Enable or disable keywords foreground
+	"todoed.highlight": true, // Enable or disable todoed
 }
 ~~~
 
