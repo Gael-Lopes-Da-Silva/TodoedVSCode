@@ -9,6 +9,9 @@
 ---
 
 ### 0.0.7
+- Updated the README
+
+### 0.0.7
 - Better highlight of keyword on same line
 - Better matching of keyword for listKeywords command
 
