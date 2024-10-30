@@ -27,11 +27,12 @@
 ## Options
 #### Todoed has 2 command available right now. `Todoed: Toggle Hightlight` that turn on or off the keywords highlight and `Todoed: List Keywords` that give you a list of all keywords in the document and their position.
 
+The following is the default configuration.
 ~~~json
 {
 	"todoed.keywords": { // Keywords and thier color
-		"BUG": "#FF3333",
-		"FIXME": "#FF3333",
+		"BUG": "#FF3333", // could also be rgb or rgba colors like rgb(255, 51, 51) or rgba(255, 51, 51, 50%)
+		"FIXME": "#FF3333", // you can use regexp as keyword like FIXME-\\d+ to highlight FIXME-numbers
 		"HACK": "#FF00FF",
 		"INFO": "#1E90FF",
 		"NOTE": "#1E90FF",
@@ -47,15 +48,6 @@
 	"todoed.showBackground": false, // Enable or disable keywords background
 	"todoed.showForeground": true, // Enable or disable keywords foreground
 	"todoed.highlight": true, // Enable or disable todoed
-}
-~~~
-
-Also, you can use regexp in keywords to match more keyword. But be careful, this is an untested feature for now. For more complexe regexep, it may have some weird behavoir.
-~~~json
-{
-    "todoed.keywords": {
-		"BUG-\\d+": "#FF3333" // match all keyword like BUG-1 or BUG-10023
-	},
 }
 ~~~
 
