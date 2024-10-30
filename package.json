@@ -29,6 +29,16 @@
 					"markdownDescription": "Give a border raduis to the background if `todoed.background` is set to `true`.",
 					"type": "integer"
 				},
+                "todoed.maxFileSize": {
+					"default": 1000000,
+					"description": "The maximum file size to work with.",
+					"type": ["integer", "integer"]
+				},
+                "todoed.maxLineCount": {
+					"default": 10000,
+					"description": "The maximum number of line to work with.",
+					"type": ["integer", "null"]
+				},
 				"todoed.highlight": {
 					"default": true,
 					"description": "Turn on or off keyword highlight.",
@@ -127,5 +137,5 @@
 		"package": "vsce package -o build",
 		"publish": "vsce publish"
 	},
-	"version": "0.0.9"
+	"version": "0.1.0"
 }

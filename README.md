@@ -48,6 +48,8 @@ The following is the default configuration.
 	"todoed.showBackground": false, // Enable or disable keywords background
 	"todoed.showForeground": true, // Enable or disable keywords foreground
 	"todoed.highlight": true, // Enable or disable todoed
+    "todoed.maxFileSize": 1000000, // The maximum file size to work with
+    "todoed.maxLineCount": 10000, // The maximum number of line to work with
 }
 ~~~
 

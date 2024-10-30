@@ -17,6 +17,8 @@ let showBackground = false;
 let borderRadius = 0;
 let showForeground = true;
 let keywordColor = "#000000";
+let maxFileSize = 1000000;
+let maxLineCount = 10000;
 
 // ----------------------------------------------------
 
@@ -98,6 +100,8 @@ function loadConfiguration() {
     keywordColor = config.inspect('keywordColor').globalValue || config.get('keywordColor');
     borderRadius = config.inspect('borderRadius').globalValue || config.get('borderRadius');
     highlight = config.inspect('highlight').globalValue || config.get('highlight');
+    maxFileSize = config.inspect('maxFileSize').globalValue || config.get('maxFileSize');
+    maxLineCount = config.inspect('maxLineCount').globalValue || config.get('maxLineCount');
 }
 
 function createDecorations() {
@@ -154,30 +158,28 @@ function listKeywords() {
     const config = commentConfig.getCommentConfig(languageId);
 
     if (!config) {
-        vscode.window.showInformationMessage("The language config doesn't possess comments.");
+        vscode.window.showInformationMessage("This language config doesn't possess comments.");
         return;
     }
 
     const text = activeTextEditor.document.getText();
+    if (maxFileSize !== null && text.length > maxFileSize || maxLineCount !== null && activeTextEditor.document.lineCount > maxLineCount) {
+        vscode.window.showInformationMessage('File is too large, skipping listing.');
+        return;
+    }
+
     const lines = text.split('\n');
 
     let todos = [];
 
-    function processLineComments() {
+    if (config.lineComment) {
         lines.forEach((lineText, lineNumber) => {
             let earliestMatch = null;
             let earliestKeyword = null;
 
             Object.keys(keywords).forEach(keyword => {
-                let expresion = `(?<=${escapeRegex(config.lineComment)}.*?)`;
-                expresion += `\\b(${keyword})\\b`;
-                expresion += `([\\[\\(\\{][^:]*[\\]\\)\\}])?`;
-                expresion += `(?:[@#~$!%?\\-]([^ :]*))?`;
-                expresion += ` *[:]? *`;
-                expresion += `(.*)?`;
-
-                const regex = new RegExp(expresion);
-                const match = regex.exec(lineText);
+                const lineRegex = new RegExp(`(?<=${escapeRegex(config.lineComment)}.*?)\\b(${keyword})\\b([\\[\\(\\{][^:]*[\\]\\)\\}])?(?:[@#~$!%?\\-]([^ :]*))? *[:]? *(.*)?`);
+                const match = lineRegex.exec(lineText);
 
                 if (match && (!earliestMatch || match.index < earliestMatch.index)) {
                     earliestMatch = match;
@@ -201,12 +203,10 @@ function listKeywords() {
         });
     }
 
-    function processBlockComments() {
-        let expresion = `${escapeRegex(config.blockComment[0])}[\\s\\S]*?${escapeRegex(config.blockComment[1])}`;
-
-        const blockRegex = new RegExp(expresion, 'g');
+    if (config.blockComment) {
+        const blockRegex = new RegExp(`${escapeRegex(config.blockComment[0])}[\\s\\S]*?${escapeRegex(config.blockComment[1])}`, 'g');
+        
         let match;
-
         while ((match = blockRegex.exec(text))) {
             const blockStartIndex = match.index;
             const blockText = match[0];
@@ -218,15 +218,8 @@ function listKeywords() {
                 let earliestKeyword = null;
 
                 Object.keys(keywords).forEach(keyword => {
-                    let expression = `\\b(${keyword})\\b`;
-                    expression += `([\\[\\(\\{][^:]*[\\]\\)\\}])?`;
-                    expression += `(?:[@#~$!%?\\-]([^ :]*))?`;
-                    expression += ` *[:]? *`;
-                    expression += `(.*?)`;
-                    expression += `(?=${escapeRegex(config.blockComment[1])}|$)`;
-
-                    const regex = new RegExp(expression);
-                    const keywordMatch = regex.exec(lineText);
+                    const keywordRegex = new RegExp(`\\b(${keyword})\\b([\\[\\(\\{][^:]*[\\]\\)\\}])?(?:[@#~$!%?\\-]([^ :]*))? *[:]? *(.*?)(?:${escapeRegex(config.blockComment[1])}|$)`);
+                    const keywordMatch = keywordRegex.exec(lineText);
 
                     if (keywordMatch && (!earliestMatch || keywordMatch.index < earliestMatch.index)) {
                         earliestMatch = keywordMatch;
@@ -253,14 +246,6 @@ function listKeywords() {
         }
     }
 
-    if (config.lineComment) {
-        processLineComments();
-    }
-
-    if (config.blockComment) {
-        processBlockComments();
-    }
-
     if (todos.length === 0) {
         vscode.window.showInformationMessage('No keywords found in the file.');
         return;
@@ -285,6 +270,8 @@ function updateDecorations() {
     if (!activeTextEditor) return;
 
     const text = activeTextEditor.document.getText();
+    if (maxFileSize !== null && text.length > maxFileSize || maxLineCount !== null && activeTextEditor.document.lineCount > maxLineCount) return;
+
     const languageId = activeTextEditor.document.languageId;
 
     const config = commentConfig.getCommentConfig(languageId);
@@ -293,35 +280,41 @@ function updateDecorations() {
     Object.keys(keywords).forEach(keyword => {
         const decorations = [];
 
-        let expresion = "";
-        let expresionCount = 0;
-
         if (config.lineComment) {
-            expresion += `(?<=${escapeRegex(config.lineComment)}.*?)`;
-            expresion += `(\\b${keyword}\\b)`;
-            expresionCount += 1;
-        }
+            lineRegex = new RegExp(`(?<=${escapeRegex(config.lineComment)}.*?)\\b${keyword}\\b`, 'g');
 
-        if (config.blockComment) {
-            if (expresionCount > 0) expresion += "|";
-            expresion += `(?<=${escapeRegex(config.blockComment[0])}[\\s\\S]*?)`;
-            expresion += `(\\b${keyword}\\b)`;
-            expresion += `(?=[\\s\\S]*?${escapeRegex(config.blockComment[1])})`;
-        }
-
-        const regex = new RegExp(expresion, `g`);
-
-        let match;
-        while ((match = regex.exec(text))) {
-            const keywordMatch = match[1] || match[2];
-            if (keywordMatch) {
-                const startPos = activeTextEditor.document.positionAt(match.index + match[0].indexOf(keywordMatch));
-                const endPos = activeTextEditor.document.positionAt(match.index + match[0].indexOf(keywordMatch) + keywordMatch.length);
+            let match;
+            while ((match = lineRegex.exec(text))) {
+                const startPos = activeTextEditor.document.positionAt(match.index);
+                const endPos = activeTextEditor.document.positionAt(match.index + match[0].length);
 
                 decorations.push({
                     range: new vscode.Range(startPos, endPos),
                     hoverMessage: "",
                 });
+            }
+        }
+
+        if (config.blockComment) {
+            const blockRegex = new RegExp(`${escapeRegex(config.blockComment[0])}[\\s\\S]*?${escapeRegex(config.blockComment[1])}`, 'g');
+
+            let match;
+            while ((match = blockRegex.exec(text))) {
+                const blockText = match[0];
+                const blockStart = match.index;
+
+                const keywordRegex = new RegExp(`\\b${keyword}\\b`, 'g');
+
+                let keywordMatch;
+                while ((keywordMatch = keywordRegex.exec(blockText))) {
+                    const startPos = activeTextEditor.document.positionAt(blockStart + keywordMatch.index);
+                    const endPos = activeTextEditor.document.positionAt(blockStart + keywordMatch.index + keywordMatch[0].length);
+
+                    decorations.push({
+                        range: new vscode.Range(startPos, endPos),
+                        hoverMessage: "",
+                    });
+                }
             }
         }
 

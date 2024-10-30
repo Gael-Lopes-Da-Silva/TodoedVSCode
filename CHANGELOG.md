@@ -8,6 +8,10 @@
 
 ---
 
+### 0.1.0
+- Fixed performance issue on large file
+- Added max file size and line number (1mb and 10,000 lines)
+
 ### 0.0.8 - 0.0.9
 - Added support for regex in keywords
 
