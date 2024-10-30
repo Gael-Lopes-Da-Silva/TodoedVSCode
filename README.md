@@ -50,6 +50,16 @@
 }
 ~~~
 
+Also, you can use regexp in keywords to match more keyword. But be careful, this is an untested feature for now. For more complexe regexep, it may have some weird behavoir.
+~~~json
+{
+    "todoed.keywords": {
+		"BUG-\\d+": "#FF3333" // match all keyword like BUG-1 or BUG-10023
+	},
+}
+~~~
+
+
 ## Screenshots
 <img src="./screenshots/todoed_1.png" alt="">
 <img src="./screenshots/todoed_2.png" alt="">

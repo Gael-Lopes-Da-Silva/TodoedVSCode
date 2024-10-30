@@ -8,6 +8,9 @@
 
 ---
 
+### 0.0.8 - 0.0.9
+- Added support for regex in keywords
+
 ### 0.0.7
 - Updated the README
 

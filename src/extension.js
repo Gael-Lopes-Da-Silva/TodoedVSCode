@@ -167,31 +167,31 @@ function listKeywords() {
         lines.forEach((lineText, lineNumber) => {
             let earliestMatch = null;
             let earliestKeyword = null;
-    
+
             Object.keys(keywords).forEach(keyword => {
                 let expresion = `(?<=${escapeRegex(config.lineComment)}.*?)`;
-                expresion += `\\b${keyword}\\b`;
+                expresion += `\\b(${keyword})\\b`;
                 expresion += `([\\[\\(\\{][^:]*[\\]\\)\\}])?`;
                 expresion += `(?:[@#~$!%?\\-]([^ :]*))?`;
                 expresion += ` *[:]? *`;
                 expresion += `(.*)?`;
-    
+
                 const regex = new RegExp(expresion);
                 const match = regex.exec(lineText);
-    
+
                 if (match && (!earliestMatch || match.index < earliestMatch.index)) {
                     earliestMatch = match;
-                    earliestKeyword = keyword;
+                    earliestKeyword = match[1];
                 }
             });
-    
+
             if (earliestMatch && earliestKeyword) {
-                const contentInEnclosure = earliestMatch[1] ? ` ${earliestMatch[1].trim()}` : "";
-                const contentAfterSymbol = earliestMatch[2] ? ` ${earliestMatch[2].trim()}` : "";
-                const textAfterColon = earliestMatch[3] ? earliestMatch[3].trim() : "";
-    
+                const contentInEnclosure = earliestMatch[2] ? ` ${earliestMatch[2].trim()}` : "";
+                const contentAfterSymbol = earliestMatch[3] ? ` ${earliestMatch[3].trim()}` : "";
+                const textAfterColon = earliestMatch[4] ? earliestMatch[4].trim() : "";
+
                 let label = `${earliestKeyword}${contentInEnclosure}${contentAfterSymbol}`;
-    
+
                 todos.push({
                     label: label,
                     description: textAfterColon,
@@ -204,22 +204,22 @@ function listKeywords() {
     function processBlockComments() {
         let expresion = `${escapeRegex(config.blockComment[0])}[\\s\\S\\r]*?`;
         expresion += `${escapeRegex(config.blockComment[1])}`;
-        
+
         const blockRegex = new RegExp(expresion, 'g');
         let match;
-    
+
         while ((match = blockRegex.exec(text))) {
             const blockStartIndex = match.index;
             const blockText = match[0];
             const blockStartLine = activeTextEditor.document.positionAt(blockStartIndex).line;
             const lines = blockText.split('\n');
-    
+
             lines.forEach((lineText, lineOffset) => {
                 let earliestMatch = null;
                 let earliestKeyword = null;
-    
+
                 Object.keys(keywords).forEach(keyword => {
-                    let expression = `\\b${keyword}\\b`;
+                    let expression = `\\b(${keyword})\\b`;
                     expression += `([\\[\\(\\{][^:]*[\\]\\)\\}])?`;
                     expression += `(?:[@#~$!%?\\-]([^ :]*))?`;
                     expression += ` *[:]? *`;
@@ -228,22 +228,22 @@ function listKeywords() {
 
                     const regex = new RegExp(expression);
                     const keywordMatch = regex.exec(lineText);
-    
+
                     if (keywordMatch && (!earliestMatch || keywordMatch.index < earliestMatch.index)) {
                         earliestMatch = keywordMatch;
-                        earliestKeyword = keyword;
+                        earliestKeyword = keywordMatch[1];
                     }
                 });
-    
+
                 if (earliestMatch && earliestKeyword) {
                     const line = blockStartLine + lineOffset + 1;
-    
-                    const contentInEnclosure = earliestMatch[1] ? ` ${earliestMatch[1].trim()}` : "";
-                    const contentAfterSymbol = earliestMatch[2] ? ` ${earliestMatch[2].trim()}` : "";
-                    const textAfterColon = earliestMatch[3] ? earliestMatch[3].trim() : "";
-    
+
+                    const contentInEnclosure = earliestMatch[2] ? ` ${earliestMatch[2].trim()}` : "";
+                    const contentAfterSymbol = earliestMatch[3] ? ` ${earliestMatch[3].trim()}` : "";
+                    const textAfterColon = earliestMatch[4] ? earliestMatch[4].trim() : "";
+
                     let label = `${earliestKeyword}${contentInEnclosure}${contentAfterSymbol}`;
-    
+
                     todos.push({
                         label: label,
                         description: textAfterColon,
@@ -305,9 +305,9 @@ function updateDecorations() {
 
         if (config.blockComment) {
             if (expresionCount > 0) expresion += "|";
-            expresion += `${escapeRegex(config.blockComment[0])}[\\s\\S\\r.]*?`;
+            expresion += `(?<=${escapeRegex(config.blockComment[0])}[\\s\\S\\r.]*?)`;
             expresion += `(\\b${keyword}\\b)`;
-            expresion += `[\\s\\S\\r.]*?${escapeRegex(config.blockComment[1])}`;
+            expresion += `(?=[\\s\\S\\r.]*?${escapeRegex(config.blockComment[1])})`;
             expresionCount += 1;
         }
 
@@ -315,20 +315,15 @@ function updateDecorations() {
 
         let match;
         while ((match = regex.exec(text))) {
-            let startIndex = match.index;
-            while (startIndex !== -1) {
-                const keywordPos = match[0].indexOf(keyword, startIndex - match.index);
-                if (keywordPos === -1) break;
-
-                const startPos = activeTextEditor.document.positionAt(match.index + keywordPos);
-                const endPos = activeTextEditor.document.positionAt(match.index + keywordPos + keyword.length);
+            const keywordMatch = match[1] || match[2];
+            if (keywordMatch) {
+                const startPos = activeTextEditor.document.positionAt(match.index + match[0].indexOf(keywordMatch));
+                const endPos = activeTextEditor.document.positionAt(match.index + match[0].indexOf(keywordMatch) + keywordMatch.length);
 
                 decorations.push({
                     range: new vscode.Range(startPos, endPos),
                     hoverMessage: "",
                 });
-
-                startIndex = match.index + keywordPos + keyword.length;
             }
         }
 
