@@ -202,8 +202,7 @@ function listKeywords() {
     }
 
     function processBlockComments() {
-        let expresion = `${escapeRegex(config.blockComment[0])}[\\s\\S\\r]*?`;
-        expresion += `${escapeRegex(config.blockComment[1])}`;
+        let expresion = `${escapeRegex(config.blockComment[0])}[\\s\\S]*?${escapeRegex(config.blockComment[1])}`;
 
         const blockRegex = new RegExp(expresion, 'g');
         let match;
@@ -305,10 +304,9 @@ function updateDecorations() {
 
         if (config.blockComment) {
             if (expresionCount > 0) expresion += "|";
-            expresion += `(?<=${escapeRegex(config.blockComment[0])}[\\s\\S\\r.]*?)`;
+            expresion += `(?<=${escapeRegex(config.blockComment[0])}[\\s\\S]*?)`;
             expresion += `(\\b${keyword}\\b)`;
-            expresion += `(?=[\\s\\S\\r.]*?${escapeRegex(config.blockComment[1])})`;
-            expresionCount += 1;
+            expresion += `(?=[\\s\\S]*?${escapeRegex(config.blockComment[1])})`;
         }
 
         const regex = new RegExp(expresion, `g`);
