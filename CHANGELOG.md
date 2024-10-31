@@ -8,6 +8,9 @@
 
 ---
 
+### 0.1.1
+- Updated README
+
 ### 0.1.0
 - Fixed performance issue on large file
 - Added max file size and line number (1mb and 10,000 lines)

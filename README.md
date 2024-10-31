@@ -6,6 +6,10 @@
 	<img width="400px" src="./resources/logo.png" alt="">
 </div>
 
+<div align="center">
+    <a href="https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode">https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode</a>
+</div>
+
 <br>
 
 <div align="center">
@@ -20,12 +24,18 @@
 	</a>
 </div>
 
-### Todoed is a simple extension to highlight keywords like TODO, FIXME, NOTE... I have added some options to modify the keywords and their colors.
+Description
+------------------------------------------------------------------
 
-### If you find any bugs or have suggestions, fell free to report it [here](https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode/issues/new/choose). This would help me a lot.
+Todoed is a simple extension to highlight keywords like TODO, FIXME, NOTE... I have added some options to modify the keywords and their colors.
 
-## Options
-#### Todoed has 2 command available right now. `Todoed: Toggle Hightlight` that turn on or off the keywords highlight and `Todoed: List Keywords` that give you a list of all keywords in the document and their position.
+If you find any bugs or have suggestions, fell free to report it [here](https://github.com/Gael-Lopes-Da-Silva/TodoedVSCode/issues/new/choose). This would help me a lot.
+
+
+Options
+------------------------------------------------------------------
+
+Todoed has 2 command available right now. `Todoed: Toggle Hightlight` that turn on or off the keywords highlight and `Todoed: List Keywords` that give you a list of all keywords in the document and their position.
 
 The following is the default configuration.
 ~~~json
@@ -54,12 +64,20 @@ The following is the default configuration.
 ~~~
 
 
-## Screenshots
-<img src="./screenshots/todoed_1.png" alt="">
-<img src="./screenshots/todoed_2.png" alt="">
+Screenshots
+------------------------------------------------------------------
 
-## How to build ?
+![](./screenshots/todoed_1.png)
+![](./screenshots/todoed_2.png)
+
+
+How to build
+------------------------------------------------------------------
+
 If you want a build of Todoed you can find it in the release section or in the [build](./build/) folder. Else use `vsce package` in the project folder.
 
-## How to install ?
+
+How to install
+------------------------------------------------------------------
+
 To install, open visual studio code and go to the extention menu. Click on the three dots and click on `Install from VSIX` and choose the `todoed-X.X.X.vsix` file. Or just install it on the market place.
