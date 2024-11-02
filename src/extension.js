@@ -194,7 +194,7 @@ function listKeywords() {
 
             if (earliestMatch && earliestKeyword) {
                 const line = lineStartLine + 1;
-                
+
                 const contentInEnclosure = earliestMatch[2] ? ` ${earliestMatch[2].trim()}` : "";
                 const contentAfterSymbol = earliestMatch[3] ? ` ${earliestMatch[3].trim()}` : "";
                 const textAfterColon = earliestMatch[4] ? earliestMatch[4].trim() : "";
@@ -212,7 +212,7 @@ function listKeywords() {
 
     if (config.blockComment) {
         const blockRegex = new RegExp(`${escapeRegex(config.blockComment[0])}[\\s\\S]*?${escapeRegex(config.blockComment[1])}`, 'g');
-        
+
         let match;
         while ((match = blockRegex.exec(text))) {
             const blockStart = match.index;
@@ -296,7 +296,7 @@ function updateDecorations() {
                 const lineStart = match.index;
 
                 const keywordRegex = new RegExp(`\\b${keyword}\\b`, 'g');
-                
+
                 let keywordMatch;
                 while ((keywordMatch = keywordRegex.exec(lineText))) {
                     const startPos = activeTextEditor.document.positionAt(lineStart + keywordMatch.index);
