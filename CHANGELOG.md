@@ -8,6 +8,9 @@
 
 ---
 
+### 0.1.2
+- Updated regex matching for better performances
+
 ### 0.1.1
 - Updated README
 

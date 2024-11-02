@@ -158,36 +158,43 @@ function listKeywords() {
     const config = commentConfig.getCommentConfig(languageId);
 
     if (!config) {
-        vscode.window.showInformationMessage("This language config doesn't possess comments.");
+        vscode.window.showInformationMessage("This language configuration doesn't possess comments.");
         return;
     }
 
     const text = activeTextEditor.document.getText();
     if (maxFileSize !== null && text.length > maxFileSize || maxLineCount !== null && activeTextEditor.document.lineCount > maxLineCount) {
-        vscode.window.showInformationMessage('File is too large, skipping listing.');
+        vscode.window.showInformationMessage('This file is too large. Check the extension configuration for more info.');
         return;
     }
-
-    const lines = text.split('\n');
 
     let todos = [];
 
     if (config.lineComment) {
-        lines.forEach((lineText, lineNumber) => {
+        lineRegex = new RegExp(`${escapeRegex(config.lineComment)}.*`, 'g');
+
+        let match;
+        while ((match = lineRegex.exec(text))) {
+            const lineText = match[0];
+            const lineStart = match.index;
+            const lineStartLine = activeTextEditor.document.positionAt(lineStart).line;
+
             let earliestMatch = null;
             let earliestKeyword = null;
 
             Object.keys(keywords).forEach(keyword => {
-                const lineRegex = new RegExp(`(?<=${escapeRegex(config.lineComment)}.*?)\\b(${keyword})\\b([\\[\\(\\{][^:]*[\\]\\)\\}])?(?:[@#~$!%?\\-]([^ :]*))? *[:]? *(.*)?`);
-                const match = lineRegex.exec(lineText);
+                const lineRegex = new RegExp(`\\b(${keyword})\\b([\\[\\(\\{][^:]*[\\]\\)\\}])?(?:[@#~$!%?\\-]([^ :]*))? *[:]? *(.*)?`);
+                const keywordMatch = lineRegex.exec(lineText);
 
-                if (match && (!earliestMatch || match.index < earliestMatch.index)) {
-                    earliestMatch = match;
-                    earliestKeyword = match[1];
+                if (keywordMatch && (!earliestMatch || keywordMatch.index < earliestMatch.index)) {
+                    earliestMatch = keywordMatch;
+                    earliestKeyword = keywordMatch[1];
                 }
             });
 
             if (earliestMatch && earliestKeyword) {
+                const line = lineStartLine + 1;
+                
                 const contentInEnclosure = earliestMatch[2] ? ` ${earliestMatch[2].trim()}` : "";
                 const contentAfterSymbol = earliestMatch[3] ? ` ${earliestMatch[3].trim()}` : "";
                 const textAfterColon = earliestMatch[4] ? earliestMatch[4].trim() : "";
@@ -197,10 +204,10 @@ function listKeywords() {
                 todos.push({
                     label: label,
                     description: textAfterColon,
-                    line: lineNumber + 1,
+                    line: line,
                 });
             }
-        });
+        }
     }
 
     if (config.blockComment) {
@@ -208,9 +215,9 @@ function listKeywords() {
         
         let match;
         while ((match = blockRegex.exec(text))) {
-            const blockStartIndex = match.index;
+            const blockStart = match.index;
             const blockText = match[0];
-            const blockStartLine = activeTextEditor.document.positionAt(blockStartIndex).line;
+            const blockStartLine = activeTextEditor.document.positionAt(blockStart).line;
             const lines = blockText.split('\n');
 
             lines.forEach((lineText, lineOffset) => {
@@ -281,17 +288,25 @@ function updateDecorations() {
         const decorations = [];
 
         if (config.lineComment) {
-            lineRegex = new RegExp(`(?<=${escapeRegex(config.lineComment)}.*?)\\b${keyword}\\b`, 'g');
+            lineRegex = new RegExp(`${escapeRegex(config.lineComment)}.*`, 'g');
 
             let match;
             while ((match = lineRegex.exec(text))) {
-                const startPos = activeTextEditor.document.positionAt(match.index);
-                const endPos = activeTextEditor.document.positionAt(match.index + match[0].length);
+                const lineText = match[0];
+                const lineStart = match.index;
 
-                decorations.push({
-                    range: new vscode.Range(startPos, endPos),
-                    hoverMessage: "",
-                });
+                const keywordRegex = new RegExp(`\\b${keyword}\\b`, 'g');
+                
+                let keywordMatch;
+                while ((keywordMatch = keywordRegex.exec(lineText))) {
+                    const startPos = activeTextEditor.document.positionAt(lineStart + keywordMatch.index);
+                    const endPos = activeTextEditor.document.positionAt(lineStart + keywordMatch.index + keywordMatch[0].length);
+
+                    decorations.push({
+                        range: new vscode.Range(startPos, endPos),
+                        hoverMessage: "",
+                    });
+                }
             }
         }
 
