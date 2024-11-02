@@ -8,6 +8,9 @@
 
 ---
 
+### 0.1.3
+- Fixed config issue
+
 ### 0.1.2
 - Updated regex matching for better performances
 
