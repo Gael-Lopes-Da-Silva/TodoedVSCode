@@ -8,6 +8,9 @@
 
 ---
 
+### 0.1.4
+- Update public config
+
 ### 0.1.3
 - Fixed config issue
 
