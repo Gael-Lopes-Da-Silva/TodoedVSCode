@@ -1,0 +1,2 @@
+- [ ] Add command to remove all comments in the file with keywords
+- [ ] Add command to remove all comments in the file
